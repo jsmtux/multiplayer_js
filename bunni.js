@@ -1,10 +1,8 @@
 
 function Bunni(x, y) {
-
-	this.texture = PIXI.Texture.fromImage("bunny.png");
-
-	Networkable.call(this, this.texture, x, y);
+	Networkable.call(this, "bunny.png", x, y);
 }
 
-Bunni.prototype = new Networkable();
+Bunni.prototype = Object.create(Networkable.prototype);
+Bunni.prototype.constructor = Bunny;
 

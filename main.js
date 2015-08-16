@@ -6,7 +6,6 @@ function main()
 	var sceneWidth = 800;
 	var sceneHeight = 300;
 
-	var iteration = 0;
 	var ended = false;
 
 	var updateLoopTime = 1000 / 15;
@@ -14,19 +13,22 @@ function main()
 	var scene = new Scene(sceneWidth, sceneHeight);
 
 	var bunni = new Bunni(200, 150);
+	var bunni2 = new Bunni(300, 150);
 
 	scene.addObject(bunni);
+	scene.addObject(bunni2);
 
 	var updateInterval = setInterval(update, updateLoopTime);
 
 	requestAnimationFrame(render);
 
 	function update() {
+		scene.prepareUpdate();
 
+		/* TODO All this code needs to be moved to the bunni.update() function */
 		var init = bunni.getInitState();
 		var next = bunni.getNextState();
 
-		next.copy(init);
 
 		/* FIXME Handle up + left cases move sprite faster */
 		if (keys[keyNames.UP]) {
@@ -46,14 +48,11 @@ function main()
 			ended = true;
 		}
 
-		console.log("init position " + init.x);
-
-		Networkable.lastUpdated = getMillis();
+		scene.finishUpdate();
 
 		if (ended) {
 			clearInterval(updateInterval);
 		}
-		iteration++;
 	}
 
 	function render() {

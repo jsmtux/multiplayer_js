@@ -7,16 +7,20 @@ function NetworkableState(x, y)
 
 NetworkableState.prototype.copy = function(another)
 {
-	another.x = this.x;
-	another.y = this.y;
+	this.x = another.x;
+	this.y = another.y;
 }
 
-function Networkable(texture, x, y)
+function Networkable(tex_path, x, y)
 {
+	/* FIXME we are creating one new texture image every time, they should be stored in a map*/
+	this.texture = PIXI.Texture.fromImage(tex_path);
+
 	this.initState = new NetworkableState(x, y);
 	this.nextState = new NetworkableState(x, y);
+	this.staticData = {"texture":tex_path};
 
-	this.sprite = new PIXI.Sprite(texture);
+	this.sprite = new PIXI.Sprite(this.texture);
 
 	this.sprite.anchor.x = 0.5;
 	this.sprite.anchor.y = 0.5;
@@ -44,7 +48,5 @@ Networkable.prototype.draw = function(percent)
 
 	this.sprite.position.x = init.x + (next.x - init.x) * percent;
 	this.sprite.position.y = init.y + (next.y - init.y) * percent;
-
-	console.log("--- rendering position " + this.sprite.position.x);
 }
 
