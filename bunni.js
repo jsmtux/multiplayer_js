@@ -4,5 +4,5 @@ function Bunni(x, y) {
 }
 
 Bunni.prototype = Object.create(Networkable.prototype);
-Bunni.prototype.constructor = Bunny;
+Bunni.prototype.constructor = Bunni;
 

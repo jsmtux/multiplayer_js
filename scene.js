@@ -3,6 +3,7 @@ function Scene(width, height)
 {
 	this.objects = [];
 	this.network_manager = new NetworkManager(this);
+	this.network_manager.connect("ws://localhost:8000/");
 
 	this.stage = new PIXI.Stage(0x66FF99);
 
